@@ -1,17 +1,14 @@
 /**
- * JAVASCRIPT DASHBOARD PERPUSQU
- * Mengelola Autentikasi Session, Inisialisasi Data LocalStorage,
- * Quotes Berjalan, Dark/Light Mode (dengan Font Awesome Classes), & Animasi Angka Statistik.
+ * JAVASCRIPT DASHBOARD PERPUSQU (FIXED)
  */
 
-// Kunci penyimpanan Local Storage
+// Kunci penyimpanan Local Storage yang seragam di semua file
 const KEYS = {
-    SESSION: 'perpusqu_session',
-    THEME: 'perpusqu_theme',
+    SESSION: 'currentUser', // disesuaikan agar sama dengan login.js, register.js & profil.js
+    THEME: 'theme',        // disesuaikan agar sama dengan profil.js
     STATS: 'perpusqu_stats'
 };
 
-// Collection Quotes Berjalan
 const QUOTES = [
     "Membaca adalah jendela dunia.",
     "Hari ini membaca, besok menginspirasi.",
@@ -50,22 +47,23 @@ function renderUserInfo(user) {
     const userRoleEl = document.getElementById('userRole');
     const userClassEl = document.getElementById('userClass');
 
-    if (userGreetingEl) userGreetingEl.textContent = `Halo, ${user.username}`;
+    // Mengakomodasi beragam struktur objek user (fullName / nama / username)
+    const displayName = user.fullName || user.nama || user.username || 'Siswa';
+
+    if (userGreetingEl) userGreetingEl.textContent = `Halo, ${displayName}`;
     if (userRoleEl) userRoleEl.textContent = user.role || 'Siswa';
-    if (userClassEl) userClassEl.textContent = user.kelas || '-';
+    if (userClassEl) userClassEl.textContent = user.class || user.kelas || '-';
 }
 
 // ==========================================
-// 3. TEMA LIGHT / DARK MODE (FONT AWESOME CLASS)
+// 3. TEMA LIGHT / DARK MODE
 // ==========================================
 function initTheme() {
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     const themeIcon = document.getElementById('themeIcon');
     
-    // Ambil preferensi dari LocalStorage atau default ke light
     const currentTheme = localStorage.getItem(KEYS.THEME) || 'light';
 
-    // Terapkan tema saat ini & atur class Font Awesome
     document.documentElement.setAttribute('data-theme', currentTheme);
     if (themeIcon) {
         if (currentTheme === 'dark') {
@@ -80,11 +78,9 @@ function initTheme() {
             const activeTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
 
-            // Set Atribut & Simpan ke Storage
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem(KEYS.THEME, newTheme);
 
-            // Ubah Class Ikon Font Awesome
             if (themeIcon) {
                 if (newTheme === 'dark') {
                     themeIcon.classList.replace('fa-moon', 'fa-sun');
@@ -106,28 +102,20 @@ function initQuotes() {
     let quoteIndex = 0;
 
     setInterval(() => {
-        // Beri efek fade-out
         quoteTextEl.classList.add('quote-fade');
 
         setTimeout(() => {
-            // Ubah teks quote
             quoteIndex = (quoteIndex + 1) % QUOTES.length;
             quoteTextEl.textContent = `"${QUOTES[quoteIndex]}"`;
-            
-            // Lakukan fade-in kembali
             quoteTextEl.classList.remove('quote-fade');
         }, 500);
 
-    }, 4500); // Pergantian setiap 4.5 detik
+    }, 4500);
 }
 
 // ==========================================
 // 5. MANAJEMEN STATISTIK & ANIMASI ANGKA
 // ==========================================
-
-/**
- * Mengambil data statistik dari Local Storage atau buat default baru
- */
 function getStatsFromStorage() {
     const statsRaw = localStorage.getItem(KEYS.STATS);
     if (statsRaw) {
@@ -138,21 +126,17 @@ function getStatsFromStorage() {
         }
     }
 
-    // Default Nilai Statistik Awal
     const defaultStats = {
-        totalBuku: 24,        // Contoh data awal buku perpustakaan
-        totalReview: 0,       // Awalnya 0
-        sedangDipinjam: 0,    // Awalnya 0
-        bukuPopuler: 0        // Awalnya 0
+        totalBuku: 24,
+        totalReview: 0,
+        sedangDipinjam: 0,
+        bukuPopuler: 0
     };
 
     localStorage.setItem(KEYS.STATS, JSON.stringify(defaultStats));
     return defaultStats;
 }
 
-/**
- * Animasi Penghitung Angka dari 0 ke Angka Target
- */
 function animateValue(element, start, end, duration) {
     if (!element) return;
     
@@ -168,9 +152,6 @@ function animateValue(element, start, end, duration) {
     window.requestAnimationFrame(step);
 }
 
-/**
- * Memuat dan Menampilkan Statistik dengan Animasi
- */
 function renderStats() {
     const stats = getStatsFromStorage();
 
@@ -185,9 +166,6 @@ function renderStats() {
     animateValue(bukuPopulerEl, 0, stats.bukuPopuler || 0, 1000);
 }
 
-/**
- * Memantau perubahan Local Storage agar statistik terupdate otomatis
- */
 function setupStorageListener() {
     window.addEventListener('storage', (e) => {
         if (e.key === KEYS.STATS) {
@@ -200,23 +178,14 @@ function setupStorageListener() {
 // INITIALIZATION ON DOM READY
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Cek Login User
     const currentUser = checkAuth();
 
     if (currentUser) {
-        // 2. Tampilkan Info User
         renderUserInfo(currentUser);
-
-        // 3. Inisialisasi Tema (Light/Dark Mode)
         initTheme();
-
-        // 4. Jalankan Quotes Berjalan
         initQuotes();
-
-        // 5. Muat Statistik dengan Animasi
         renderStats();
-
-        // 6. Pasang Listener Perubahan Local Storage
         setupStorageListener();
     }
 });
+        
