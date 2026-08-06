@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil PerpusQu</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="profil.css">
+</head>
+<body>
+    <!-- App Container (Mobile Container Max-Width 480px) -->
+    <div class="app-container">
+        
+        <!-- Sticky Header -->
+        <header class="app-header">
+            <a href="index.html" class="header-btn" id="btnBack">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <h1 class="header-title">Profil Saya</h1>
+            <div class="header-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </header>
+
+        <!-- Main Scrollable Content -->
+        <main class="main-content">
+            
+            <!-- Card Informasi Akun -->
+            <section class="card profile-info-card">
+                <div class="profile-avatar-wrapper">
+                    <img id="avatarImage" src="" alt="Foto Profil" class="profile-avatar">
+                    <button type="button" class="btn-camera" id="btnChangePhoto" title="Ubah Foto Profil">
+                        <i class="fa-solid fa-camera"></i>
+                    </button>
+                    <input type="file" id="filePhotoInput" accept="image/jpeg, image/jpg, image/png, image/webp" hidden>
+                </div>
+                
+                <div class="photo-actions" id="photoActions" style="display: none;">
+                    <button type="button" class="btn-text btn-danger-text" id="btnRemovePhoto">
+                        <i class="fa-solid fa-image"></i> Hapus Foto
+                    </button>
+                </div>
+
+                <h2 class="user-fullname" id="displayFullName">-</h2>
+                <p class="user-username" id="displayUsername">@-</p>
+
+                <div class="badge-row">
+                    <span class="badge badge-role" id="displayRole">-</span>
+                    <span class="badge badge-class" id="displayClass">-</span>
+                </div>
+
+                <hr class="divider">
+
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-label"><i class="fa-solid fa-id-card"></i> Email</span>
+                        <span class="info-value" id="displayEmail">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fa-solid fa-circle-info"></i> Tgl Registrasi</span>
+                        <span class="info-value" id="displayRegDate">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fa-solid fa-circle-check"></i> Status Akun</span>
+                        <span class="info-value status-active">Aktif</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card Statistik Akun -->
+            <section class="section-title">Statistik Akun</section>
+            <div class="stats-grid">
+                <div class="card stat-card">
+                    <div class="stat-icon icon-book">
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statTotalBorrowed">0</span>
+                        <span class="stat-label">Total Buku Dipinjam</span>
+                    </div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-icon icon-star">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statTotalReviews">0</span>
+                        <span class="stat-label">Total Review</span>
+                    </div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-icon icon-clock">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statCurrentlyBorrowed">0</span>
+                        <span class="stat-label">Sedang Dipinjam</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu Pengaturan -->
+            <section class="section-title">Pengaturan Akun & Aplikasi</section>
+            <div class="menu-list">
+                <!-- Menu Kelola Akun -->
+                <button type="button" class="menu-item" id="btnOpenAccountModal">
+                    <div class="menu-left">
+                        <div class="menu-icon icon-green"><i class="fa-solid fa-user-pen"></i></div>
+                        <span class="menu-text">Kelola Akun</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
+                </button>
+
+                <!-- Menu Ubah Password -->
+                <button type="button" class="menu-item" id="btnOpenPasswordModal">
+                    <div class="menu-left">
+                        <div class="menu-icon icon-orange"><i class="fa-solid fa-lock"></i></div>
+                        <span class="menu-text">Ubah Password</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
+                </button>
+
+                <!-- Menu Pengaturan Tema -->
+                <button type="button" class="menu-item" id="btnOpenThemeModal">
+                    <div class="menu-left">
+                        <div class="menu-icon icon-purple"><i class="fa-solid fa-palette"></i></div>
+                        <span class="menu-text">Pengaturan Tema</span>
+                    </div>
+                    <div class="menu-right">
+                        <span class="menu-subtext" id="currentThemeLabel">Light Mode</span>
+                        <i class="fa-solid fa-chevron-right menu-arrow"></i>
+                    </div>
+                </button>
+
+                <!-- Menu Bantuan -->
+                <button type="button" class="menu-item" id="btnOpenHelpModal">
+                    <div class="menu-left">
+                        <div class="menu-icon icon-blue"><i class="fa-solid fa-circle-question"></i></div>
+                        <span class="menu-text">Bantuan</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
+                </button>
+
+                <!-- Menu Logout -->
+                <button type="button" class="menu-item menu-item-danger" id="btnOpenLogoutModal">
+                    <div class="menu-left">
+                        <div class="menu-icon icon-red"><i class="fa-solid fa-right-from-bracket"></i></div>
+                        <span class="menu-text">Logout</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right menu-arrow"></i>
+                </button>
+            </div>
+
+            <!-- Card Tentang PerpusQu -->
+            <section class="section-title">Informasi Aplikasi</section>
+            <div class="card about-card">
+                <div class="about-header">
+                    <div class="about-logo">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div class="about-title-group">
+                        <h3 class="about-name">PerpusQu</h3>
+                        <span class="about-version">Versi 1.0</span>
+                    </div>
+                </div>
+                <p class="about-description">
+                    PerpusQu merupakan website perpustakaan digital sederhana yang dibuat oleh Kelompok 7 kelas XI.4 sebagai proyek tugas mata pelajaran Informatika. Website ini dirancang untuk membantu proses pengelolaan perpustakaan agar lebih mudah, cepat, dan efisien bagi siswa maupun petugas perpustakaan.
+                </p>
+            </div>
+
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Beranda</span>
+            </a>
+            <a href="scan.html" class="nav-item">
+                <i class="fa-solid fa-book"></i>
+                <span>Scan</span>
+            </a>
+            <a href="rating.html" class="nav-item">
+                <i class="fa-solid fa-star"></i>
+                <span>Rating</span>
+            </a>
+            <a href="profil.html" class="nav-item active">
+                <i class="fa-solid fa-user"></i>
+                <span>Profil</span>
+            </a>
+        </nav>
+
+    </div>
+
+    <!-- MODAL: Kelola Akun -->
+    <div class="modal-overlay" id="modalAccount">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Kelola Akun</h3>
+                <button type="button" class="modal-close" id="btnCloseAccountModal"><i class="fa-solid fa-circle-xmark"></i></button>
+            </div>
+            <form id="formAccount" class="modal-body">
+                <div class="form-group">
+                    <label for="editFullName">Nama Lengkap</label>
+                    <input type="text" id="editFullName" class="form-control" placeholder="Masukkan nama lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label for="editUsername">Username</label>
+                    <input type="text" id="editUsername" class="form-control" placeholder="Masukkan username" required>
+                </div>
+                <div class="form-group">
+                    <label for="editClass">Kelas</label>
+                    <input type="text" id="editClass" class="form-control" placeholder="Contoh: XI.4" required>
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail" class="form-control" placeholder="Masukkan email" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnCancelAccount">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Ubah Password -->
+    <div class="modal-overlay" id="modalPassword">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Ubah Password</h3>
+                <button type="button" class="modal-close" id="btnClosePasswordModal"><i class="fa-solid fa-circle-xmark"></i></button>
+            </div>
+            <form id="formPassword" class="modal-body">
+                <div class="form-group">
+                    <label for="oldPassword">Password Lama</label>
+                    <div class="input-password-group">
+                        <input type="password" id="oldPassword" class="form-control" placeholder="Masukkan password lama" required>
+                        <button type="button" class="btn-toggle-pw" data-target="oldPassword">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">Password Baru (Min. 8 Karakter)</label>
+                    <div class="input-password-group">
+                        <input type="password" id="newPassword" class="form-control" placeholder="Masukkan password baru" minlength="8" required>
+                        <button type="button" class="btn-toggle-pw" data-target="newPassword">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Konfirmasi Password Baru</label>
+                    <div class="input-password-group">
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="Ulangi password baru" minlength="8" required>
+                        <button type="button" class="btn-toggle-pw" data-target="confirmPassword">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnCancelPassword">Batal</button>
+                    <button type="submit" class="btn btn-primary">Ubah Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Pengaturan Tema -->
+    <div class="modal-overlay" id="modalTheme">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Pengaturan Tema</h3>
+                <button type="button" class="modal-close" id="btnCloseThemeModal"><i class="fa-solid fa-circle-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-desc">Pilih tampilan antarmuka yang paling nyaman untuk Anda.</p>
+                <div class="theme-options">
+                    <button type="button" class="theme-option-btn" id="btnThemeLight">
+                        <i class="fa-solid fa-sun icon-sun"></i>
+                        <span>Light Mode</span>
+                        <i class="fa-solid fa-circle-check check-mark"></i>
+                    </button>
+                    <button type="button" class="theme-option-btn" id="btnThemeDark">
+                        <i class="fa-solid fa-moon icon-moon"></i>
+                        <span>Dark Mode</span>
+                        <i class="fa-solid fa-circle-check check-mark"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Bantuan -->
+    <div class="modal-overlay" id="modalHelp">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Cara Menggunakan PerpusQu</h3>
+                <button type="button" class="modal-close" id="btnCloseHelpModal"><i class="fa-solid fa-circle-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <ol class="help-list">
+                    <li><strong>Login Akun:</strong> Masuk ke aplikasi menggunakan username dan password Anda.</li>
+                    <li><strong>Scan Buku:</strong> Gunakan menu Scan untuk memindai kode QR atau barcode pada buku.</li>
+                    <li><strong>Pinjam Buku:</strong> Konfirmasi peminjaman buku melalui aplikasi saat berada di perpustakaan.</li>
+                    <li><strong>Lihat Riwayat:</strong> Cek status dan riwayat buku yang dipinjam melalui Dashboard.</li>
+                    <li><strong>Berikan Rating:</strong> Bagikan ulasan dan penilaian buku melalui menu Rating.</li>
+                    <li><strong>Logout:</strong> Keluar dari akun Anda secara aman melalui menu Profil.</li>
+                </ol>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnOkHelp">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Konfirmasi Logout -->
+    <div class="modal-overlay" id="modalLogout">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Konfirmasi Logout</h3>
+                <button type="button" class="modal-close" id="btnCloseLogoutModal"><i class="fa-solid fa-circle-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-desc">Apakah Anda yakin ingin keluar dari akun?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btnCancelLogout">Batal</button>
+                <button type="button" class="btn btn-danger" id="btnConfirmLogout">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Custom JavaScript -->
+    <script src="profil.js"></script>
+</body>
+</html>
+

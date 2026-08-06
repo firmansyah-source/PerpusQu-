@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PerpusQu - Riwayat Peminjaman</title>
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="riwayat.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="app-header">
+        <a href="index.html" class="btn-back" id="btnBack">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h1 class="header-title">Riwayat Peminjaman</h1>
+        <div class="header-icon">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Section Ringkasan Statistik -->
+        <section class="stats-section">
+            <div class="stat-card">
+                <div class="stat-icon bg-sage-light color-sage">
+                    <i class="fa-solid fa-book"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value" id="statTotalBooks">0</span>
+                    <span class="stat-label">Total Dipinjam</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon bg-warning-light color-warning">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value" id="statBorrowedBooks">0</span>
+                    <span class="stat-label">Sedang Dipinjam</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon bg-success-light color-success">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value" id="statReturnedBooks">0</span>
+                    <span class="stat-label">Sudah Dikembalikan</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search & Filter Controls -->
+        <section class="controls-section">
+            <!-- Search Bar -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Cari judul buku, ID, atau kategori..." autocomplete="off">
+                <button type="button" class="btn-clear-search" id="btnClearSearch" style="display: none;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="semua">
+                    <i class="fa-solid fa-filter"></i> Semua
+                </button>
+                <button class="filter-btn" data-filter="dipinjam">
+                    <i class="fa-solid fa-book-open"></i> Dipinjam
+                </button>
+                <button class="filter-btn" data-filter="dikembalikan">
+                    <i class="fa-solid fa-circle-check"></i> Dikembalikan
+                </button>
+            </div>
+        </section>
+
+        <!-- Container Daftar Riwayat Card -->
+        <section class="history-list-section">
+            <div id="historyList" class="history-list">
+                <!-- Data card akan dirender via JavaScript -->
+            </div>
+
+            <!-- Tampilan Kosong (Empty State) -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                </div>
+                <h3>Belum Ada Riwayat</h3>
+                <p id="emptyStateText">Belum ada riwayat peminjaman buku yang tercatat.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Detail Peminjaman -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>Detail Peminjaman</h2>
+                <button class="btn-close-modal" id="btnCloseDetailModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="detailModalBody">
+                <!-- Content injected via JS -->
+            </div>
+            <div class="modal-footer" id="detailModalFooter">
+                <!-- Action buttons injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form Rating & Ulasan -->
+    <div class="modal-overlay" id="ratingModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>Beri Rating & Ulasan</h2>
+                <button class="btn-close-modal" id="btnCloseRatingModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="rating-book-info">
+                    <h4 id="ratingBookTitle">Judul Buku</h4>
+                    <p id="ratingBookAuthor">Penulis</p>
+                </div>
+                
+                <div class="star-rating-picker" id="starPicker">
+                    <i class="fa-solid fa-star star-btn" data-value="1"></i>
+                    <i class="fa-solid fa-star star-btn" data-value="2"></i>
+                    <i class="fa-solid fa-star star-btn" data-value="3"></i>
+                    <i class="fa-solid fa-star star-btn" data-value="4"></i>
+                    <i class="fa-solid fa-star star-btn" data-value="5"></i>
+                </div>
+                <input type="hidden" id="selectedRatingValue" value="0">
+
+                <div class="form-group">
+                    <label for="reviewComment">Ulasan Anda (Opsional):</label>
+                    <textarea id="reviewComment" rows="3" placeholder="Bagaimana pendapat Anda tentang buku ini?"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="btnCancelRating">Batal</button>
+                <button class="btn btn-primary" id="btnSubmitRating">Kirim Ulasan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="riwayat.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PerpusQu - Rating Buku</title>
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="rating.css">
+</head>
+<body>
+
+    <!-- Container Utama App Mobile-First -->
+    <div class="app-container">
+        
+        <!-- Header (Tanpa Tombol Panah Kembali) -->
+        <header class="app-header">
+            <h1 class="header-title">Rating Buku</h1>
+            <div class="header-icon">
+                <i class="fa-solid fa-star"></i>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Search Bar Section -->
+            <section class="search-section">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Cari buku yang ingin diberi rating..." autocomplete="off">
+                </div>
+            </section>
+
+            <!-- Section Daftar Buku -->
+            <section class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-book-open"></i> Pilih Buku
+                    </h2>
+                </div>
+                
+                <!-- Container Card Buku -->
+                <div id="bookList" class="book-list">
+                    <!-- Card buku akan dimuat secara dinamis via JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section Riwayat Rating -->
+            <section class="section-container history-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-pen"></i> Riwayat Rating Saya
+                    </h2>
+                </div>
+
+                <!-- Container List Riwayat Rating -->
+                <div id="ratingHistory" class="history-list">
+                    <!-- List riwayat akan dimuat secara dinamis via JavaScript -->
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Bottom Navigation Bar -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Beranda</span>
+            </a>
+            <a href="scan.html" class="nav-item">
+                <i class="fa-solid fa-qrcode"></i>
+                <span>Scan</span>
+            </a>
+            <a href="rating.html" class="nav-item active">
+                <i class="fa-solid fa-star"></i>
+                <span>Rating</span>
+            </a>
+            <a href="profil.html" class="nav-item">
+                <i class="fa-solid fa-user"></i>
+                <span>Profil</span>
+            </a>
+        </nav>
+
+    </div>
+
+    <!-- Modal Form Rating -->
+    <div id="ratingModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title">Beri Rating Buku</h3>
+                <button type="button" class="btn-close-modal" id="btnCancelModalUpper">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+            </div>
+            
+            <form id="ratingForm" class="modal-form">
+                <input type="hidden" id="modalBookId">
+
+                <!-- Detail Buku Ringkas -->
+                <div class="modal-book-info">
+                    <img id="modalBookCover" src="" alt="Cover Buku" class="modal-cover-img">
+                    <div class="modal-book-details">
+                        <h4 id="modalBookTitle" class="modal-book-title">Judul Buku</h4>
+                        <p id="modalBookAuthor" class="modal-book-author">Penulis Buku</p>
+                    </div>
+                </div>
+
+                <!-- Star Rating Interactive Element -->
+                <div class="form-group">
+                    <label class="form-label">Beri Bintang (1 - 5):</label>
+                    <div class="star-rating-input" id="starInputContainer">
+                        <i class="fa-solid fa-star star-btn" data-value="1"></i>
+                        <i class="fa-solid fa-star star-btn" data-value="2"></i>
+                        <i class="fa-solid fa-star star-btn" data-value="3"></i>
+                        <i class="fa-solid fa-star star-btn" data-value="4"></i>
+                        <i class="fa-solid fa-star star-btn" data-value="5"></i>
+                    </div>
+                    <input type="hidden" id="selectedRatingValue" value="0">
+                </div>
+
+                <!-- Input Komentar -->
+                <div class="form-group">
+                    <label for="commentInput" class="form-label">
+                        <i class="fa-solid fa-comment"></i> Komentar / Ulasan:
+                    </label>
+                    <textarea id="commentInput" class="form-control" rows="3" placeholder="Tuliskan ulasan Anda mengenai buku ini (minimal 5 karakter)..."></textarea>
+                    <small class="error-text hidden" id="commentError">Komentar minimal 5 karakter.</small>
+                </div>
+
+                <!-- Tombol Action Modal -->
+                <div class="modal-actions">
+                    <button type="button" id="btnCancelModal" class="btn btn-secondary">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Rating</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Container Toast Notification -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- JavaScript File -->
+    <script src="rating.js"></script>
+</body>
+</html>
+

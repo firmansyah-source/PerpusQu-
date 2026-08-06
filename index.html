@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PerpusQu</title>
+    <!-- Google Font Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 CDN untuk Ikon Vektor Profesional -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Stylesheet Utama Dashboard -->
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Area Header Aplikasi -->
+    <header class="app-header">
+        <div class="header-left">
+            <i class="fa-solid fa-book-open app-logo"></i>
+            <div class="brand-info">
+                <h1 class="app-title">PerpusQu</h1>
+                <p class="user-greeting" id="userGreeting">Halo, Siswa</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <!-- Tombol Toggle Light/Dark Mode -->
+            <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Ubah Tema">
+                <i id="themeIcon" class="fa-solid fa-moon"></i>
+            </button>
+            <!-- Foto Profil & Role/Kelas Badge -->
+            <div class="user-profile-badge" id="profileBadgeBtn">
+                <div class="profile-avatar">
+                    <i class="fa-solid fa-circle-user"></i>
+                </div>
+                <div class="profile-meta">
+                    <span class="user-role" id="userRole">Siswa</span>
+                    <span class="user-class" id="userClass">XI IPA 1</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Container Konten Utama Dashboard -->
+    <main class="dashboard-container">
+
+        <!-- Banner Quotes Berjalan -->
+        <section class="quote-banner">
+            <i class="fa-solid fa-lightbulb quote-icon"></i>
+            <p id="quoteText" class="quote-text">"Membaca adalah jendela dunia."</p>
+        </section>
+
+        <!-- Kartu Statistik (Non-Clickable) -->
+        <section class="stats-section">
+            <h2 class="section-title">Ringkasan Perpustakaan</h2>
+            <div class="stats-grid">
+                
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper bg-sage">
+                        <i class="fa-solid fa-book stat-icon"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="statTotalBuku">0</span>
+                        <span class="stat-label">Total Buku</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper bg-amber">
+                        <i class="fa-solid fa-star stat-icon"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="statTotalReview">0</span>
+                        <span class="stat-label">Total Review</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper bg-blue">
+                        <i class="fa-solid fa-book-open-reader stat-icon"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="statSedangDipinjam">0</span>
+                        <span class="stat-label">Sedang Dipinjam</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper bg-rose">
+                        <i class="fa-solid fa-fire stat-icon"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="statBukuPopuler">0</span>
+                        <span class="stat-label">Buku Populer</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Menu Utama (Grid Cards) -->
+        <section class="menu-section">
+            <h2 class="section-title">Menu Utama</h2>
+            <div class="menu-grid">
+                
+                <a href="scan.html" class="menu-card">
+                    <div class="menu-icon-box">
+                        <i class="fa-solid fa-qrcode menu-icon"></i>
+                    </div>
+                    <div class="menu-text">
+                        <h3>Scan Buku</h3>
+                        <p>Pindai kode QR buku</p>
+                    </div>
+                </a>
+
+                <a href="semuabuku.html" class="menu-card">
+                    <div class="menu-icon-box">
+                        <i class="fa-solid fa-book menu-icon"></i>
+                    </div>
+                    <div class="menu-text">
+                        <h3>Semua Buku</h3>
+                        <p>Eksplor koleksi perpustakaan</p>
+                    </div>
+                </a>
+
+                <a href="rating.html" class="menu-card">
+                    <div class="menu-icon-box">
+                        <i class="fa-solid fa-star menu-icon"></i>
+                    </div>
+                    <div class="menu-text">
+                        <h3>Rating</h3>
+                        <p>Beri ulasan buku favorit</p>
+                    </div>
+                </a>
+
+                <a href="riwayat.html" class="menu-card">
+                    <div class="menu-icon-box">
+                        <i class="fa-solid fa-clock-rotate-left menu-icon"></i>
+                    </div>
+                    <div class="menu-text">
+                        <h3>Riwayat</h3>
+                        <p>Catatan peminjaman kamu</p>
+                    </div>
+                </a>
+
+                <a href="profil.html" class="menu-card menu-card-full">
+                    <div class="menu-icon-box">
+                        <i class="fa-solid fa-user menu-icon"></i>
+                    </div>
+                    <div class="menu-text">
+                        <h3>Profil Saya</h3>
+                        <p>Pengaturan akun dan logout</p>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar (Mobile Native Look) -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <i class="fa-solid fa-house nav-icon"></i>
+            <span class="nav-label">Beranda</span>
+        </a>
+        <a href="scan.html" class="nav-item">
+            <i class="fa-solid fa-qrcode nav-icon"></i>
+            <span class="nav-label">Scan</span>
+        </a>
+        <a href="rating.html" class="nav-item">
+            <i class="fa-solid fa-star nav-icon"></i>
+            <span class="nav-label">Rating</span>
+        </a>
+        <a href="profil.html" class="nav-item">
+            <i class="fa-solid fa-user nav-icon"></i>
+            <span class="nav-label">Profil</span>
+        </a>
+    </nav>
+
+    <!-- Script Utama Dashboard -->
+    <script src="index.js"></script>
+</body>
+</html>
+

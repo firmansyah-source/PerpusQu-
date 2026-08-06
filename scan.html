@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Buku - PerpusQu</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Theme CSS Base -->
+    <link rel="stylesheet" href="theme.css">
+    <!-- Custom Scan Style -->
+    <link rel="stylesheet" href="scan.css">
+    <!-- Html5Qrcode Library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+<body class="light-mode">
+
+    <!-- Container Utama App Mobile -->
+    <div class="app-container">
+        
+        <!-- Header (Tanpa Tombol Panah Kembali) -->
+        <header class="app-header">
+            <h1 class="header-title">Scan Buku</h1>
+            <div class="header-action">
+                <i class="fa-solid fa-barcode header-icon"></i>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- Card Area Scanner -->
+            <section class="scanner-card" id="scannerCard">
+                <div class="scanner-viewport" id="scannerViewport">
+                    <!-- Reader HTML5QRCode -->
+                    <div id="reader"></div>
+
+                    <!-- Overlay Scanner Frame -->
+                    <div class="scanner-overlay" id="scannerOverlay">
+                        <div class="scanner-frame">
+                            <div class="corner top-left"></div>
+                            <div class="corner top-right"></div>
+                            <div class="corner bottom-left"></div>
+                            <div class="corner bottom-right"></div>
+                            <div class="scan-line" id="scanLine"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Text -->
+                <div class="scanner-status" id="scannerStatus">
+                    <i class="fa-solid fa-circle-notch fa-spin status-icon"></i>
+                    <span id="statusText">Menyiapkan kamera...</span>
+                </div>
+
+                <!-- Tombol Kontrol Scanner -->
+                <div class="scanner-controls">
+                    <button class="btn btn-secondary" id="btnStopScan" onclick="stopScanner()">
+                        <i class="fa-solid fa-video-slash"></i> Matikan Kamera
+                    </button>
+                    <button class="btn btn-primary" id="btnRestartScan" onclick="restartScanner()" style="display: none;">
+                        <i class="fa-solid fa-rotate-right"></i> Scan Lagi
+                    </button>
+                </div>
+            </section>
+
+            <!-- Card Error Kamera (Hidden Default) -->
+            <section class="error-card" id="cameraErrorCard" style="display: none;">
+                <div class="error-icon-wrapper">
+                    <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+                </div>
+                <h3>Kamera Tidak Dapat Diakses</h3>
+                <p>Pastikan izin kamera telah diberikan di browser Anda atau periksa apakah kamera digunakan oleh aplikasi lain.</p>
+                <button class="btn btn-primary ripple" onclick="restartScanner()">
+                    <i class="fa-solid fa-arrows-rotate"></i> Coba Lagi
+                </button>
+            </section>
+
+            <!-- Card Pencarian ISBN Manual -->
+            <section class="search-card">
+                <label for="inputIsbn" class="search-label">Cari Manual ISBN</label>
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="inputIsbn" placeholder="Cari buku menggunakan ISBN..." autocomplete="off">
+                    <button class="btn-search ripple" id="btnSearchIsbn" onclick="searchBookByISBN()">
+                        Cari
+                    </button>
+                </div>
+            </section>
+
+            <!-- Result Section / Detail Buku -->
+            <section class="result-section" id="resultSection" style="display: none;">
+                <!-- Card Detail Buku Akan Dirender via JavaScript -->
+            </section>
+
+        </main>
+
+        <!-- Bottom Navigation Bar -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Beranda</span>
+            </a>
+            <a href="scan.html" class="nav-item active">
+                <i class="fa-solid fa-qrcode"></i>
+                <span>Scan</span>
+            </a>
+            <a href="rating.html" class="nav-item">
+                <i class="fa-solid fa-star"></i>
+                <span>Rating</span>
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="fa-solid fa-user"></i>
+                <span>Profil</span>
+            </a>
+        </nav>
+
+        <!-- Toast Notification Container -->
+        <div id="toastContainer" class="toast-container"></div>
+
+    </div>
+
+    <!-- External Script JS -->
+    <script src="scan.js"></script>
+</body>
+</html>
+
